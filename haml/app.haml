@@ -23,10 +23,6 @@
     #wrap
       #tabs
         %ul
-          %li.active.sessions
-            .picto.piechart
-            Active Users
-
           -current_namespace.dashboards.each do |key,dashboard|
             %li.dashboard{:rel => dashboard.token}
               .picto.piechart
@@ -63,9 +59,11 @@
 
     resizeViewport();
     $(window).resize(resizeViewport);
-
+        
     if(window.location.hash){
       $('#tabs li.dashboard[rel="'+window.location.hash.slice(1)+'"]').trigger('click');
+    } else {
+      $('#tabs li:first').trigger('click');
     }
 
   });
