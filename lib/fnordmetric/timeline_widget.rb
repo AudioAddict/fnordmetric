@@ -2,7 +2,7 @@ class FnordMetric::TimelineWidget  < FnordMetric::Widget
 
   def data
     @series_colors = ["#FACE4F", "#42436B", "#CD645A", "#2F635E"]
-
+    
     super.merge(
       :gauges => gauges.map(&:name),
       :gauge_titles => gauge_titles,

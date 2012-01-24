@@ -57,12 +57,10 @@ var FnordMetric = (function(){
   }
 
   function formatValue(value){
-    if(value < 10){
-      return value.toFixed(2);
-    } else if(value > 1000){
+    if(value > 1000){
       return (value/1000.0).toFixed(1) + "k";
     } else {
-      return value.toFixed(0);
+      return value.toFixed(2);
     }
   }
 
@@ -363,9 +361,9 @@ var FnordMetric = (function(){
 
       function redrawDatepicker(){
         $('.datepicker', opts.elem).html(
-          Highcharts.dateFormat('%d.%m.%y %H:%M', parseInt(opts.start_timestamp)*1000) +
+          Highcharts.dateFormat('%m/%d/%y %H:%M', parseInt(opts.start_timestamp)*1000) +
           '&nbsp;&dash;&nbsp;' +
-          Highcharts.dateFormat('%d.%m.%y %H:%M', parseInt(opts.end_timestamp)*1000)
+          Highcharts.dateFormat('%m/%d/%y %H:%M', parseInt(opts.end_timestamp)*1000)
         );
       }
 

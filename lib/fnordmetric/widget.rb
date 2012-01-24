@@ -51,7 +51,7 @@ class FnordMetric::Widget
 
   def default_range(now=Time.now)
     ensure_has_tick!
-    te = gauges.first.tick_at(now.to_i)
+    te = gauges.first.tick_at(now.to_i + 86400)
     te -= @tick unless include_current?
     rs = (@opts[:ticks] || (@tick == 1.hour.to_i ? 24 : 30)).to_i
     (te-(@tick*rs)..te)
