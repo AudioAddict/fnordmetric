@@ -38,17 +38,15 @@ module FnordMetric::GaugeModifiers
     end
   end
 
-  # until Redis supports floats with hincrby (currently in unstable)
+  # Until Redis supports floats with hincrby (currently in unstable)
+  # unfortunately due to using em-redis, we can't ensure this op is atomic
+  # 
   def incr_float(gauge_name, value)
     gauge = fetch_gauge(gauge_name)
     assure_two_dimensional!(gauge)
-    #@redis.multi do
-      @redis.hget(gauge.key, gauge.tick_at(time)).callback do |cur_val|
-        new_val = cur_val.to_f + value
-        FnordMetric.log("orig value: #{cur_val}, new value: #{new_val}")
-        @redis.hset(gauge.key, gauge.tick_at(time), new_val)
-      end
-    #end
+    @redis.hget(gauge.key, gauge.tick_at(time)).callback do |cur_val|
+      @redis.hset(gauge.key, gauge.tick_at(time), cur_val.to_f + value)
+    end
   end
 
   def incr_avg(gauge, value)
