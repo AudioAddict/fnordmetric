@@ -45,7 +45,7 @@ module FnordMetric::GaugeModifiers
     gauge = fetch_gauge(gauge_name)
     assure_two_dimensional!(gauge)
     @redis.hget(gauge.key, gauge.tick_at(time)).callback do |cur_val|
-      @redis.hset(gauge.key, gauge.tick_at(time), cur_val.to_f + value)
+      @redis.hset(gauge.key, gauge.tick_at(time), cur_val.to_f + value.to_f)
     end
   end
 
